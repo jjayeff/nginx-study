@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx-study-nginx
+    restart: unless-stopped
+    ports:
+      - 7000:80
+
+  back-end:
+    build:
+      context: ./backend-app
+      dockerfile: Dockerfile
+    container_name: nginx-study-backend
+    restart: unless-stopped
+
+  front-end:
+    build:
+      context: ./frontend-app
+      dockerfile: Dockerfile
+    container_name: nginx-study-frontend
+    environment:
+      - URL_ENDPOINT=localhost
+    restart: unless-stopped
